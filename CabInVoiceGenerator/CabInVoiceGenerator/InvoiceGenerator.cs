@@ -88,5 +88,18 @@ namespace CabInVoiceGenerator
             }
             return new InvoiceSummary(rides.Length, totalFare);
         }
+      
+        public InvoiceSummary GetInvoiceSummary(String userId)
+        {
+            try
+            {
+                return this.CalculateFare(rideRepository.getRides(userId));
+            }
+            catch (CabInvoiceException)
+            {
+                throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_USER_ID, "Invalid user id");
+            }
+        }
     }
 }
+    
